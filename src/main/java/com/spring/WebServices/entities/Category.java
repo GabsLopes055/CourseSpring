@@ -16,4 +16,7 @@ public class Category {
     private Long cdCategory;
     private String name;
 
+    @Transient
+    private Set<Product> products = new HashSet<>();
+
 }

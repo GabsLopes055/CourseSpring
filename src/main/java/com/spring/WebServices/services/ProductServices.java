@@ -16,7 +16,8 @@ public class ProductServices {
 
     //metodo para buscar todos produtos
     public List<Product> findAllProducts(){
-        List<Product> listProduct = repository.findAll();
+        List<Product> listProduct;
+        listProduct = repository.findAll();
         return listProduct;
     }
 

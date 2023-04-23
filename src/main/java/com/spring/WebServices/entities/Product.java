@@ -3,6 +3,9 @@ package com.spring.WebServices.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name="tbl_product")
@@ -19,5 +22,8 @@ public class Product {
     private Double price;
 
     private String imgUrl;
+
+    @Transient
+    private Set<Category> categories = new HashSet<>();
 
 }
