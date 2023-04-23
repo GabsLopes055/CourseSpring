@@ -1,14 +1,10 @@
 package com.spring.WebServices.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spring.WebServices.enums.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +34,7 @@ public class User {
 
     private String password;
     
-    private UserStatus userStatus = UserStatus.DESATIVADO;
+    private String userStatus;
 
     @OneToMany(mappedBy = "fkUser")
     @JsonManagedReference

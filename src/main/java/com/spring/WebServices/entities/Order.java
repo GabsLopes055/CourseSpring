@@ -1,7 +1,6 @@
 package com.spring.WebServices.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.spring.WebServices.enums.OrderStatus;
 import jakarta.persistence.*;
@@ -9,6 +8,10 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_order")
@@ -27,8 +30,12 @@ public class Order {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "cdUser", nullable = false)
+    @JoinColumn(name = "cdUser")
     private User fkUser;
+
+    @OneToMany(mappedBy = "fkOrder")
+    @JsonManagedReference
+    private List<Product> products = new ArrayList<>();
 
 
 }

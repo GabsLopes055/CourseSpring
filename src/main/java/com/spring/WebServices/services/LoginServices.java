@@ -1,6 +1,7 @@
 package com.spring.WebServices.services;
 
 import com.spring.WebServices.entities.User;
+import com.spring.WebServices.enums.UserStatus;
 import com.spring.WebServices.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,12 @@ public class LoginServices {
 
         if (findUser.isEmpty()) {
             return false;
+        } else if (findUser.get().getUserStatus().equals("DESATIVADO")) {
+            return false;
+        } else {
+            return encoder.matches(password, findUser.get().getPassword());
         }
-        return encoder.matches(password, findUser.get().getPassword());
+
 
 
     }

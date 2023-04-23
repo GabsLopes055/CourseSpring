@@ -1,9 +1,14 @@
 package com.spring.WebServices.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,7 +21,8 @@ public class Category {
     private Long cdCategory;
     private String name;
 
-    @Transient
-    private Set<Product> products = new HashSet<>();
+    @OneToMany(mappedBy = "fkCategory")
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
 
 }

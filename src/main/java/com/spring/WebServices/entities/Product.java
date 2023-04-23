@@ -1,5 +1,8 @@
 package com.spring.WebServices.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,7 +26,14 @@ public class Product {
 
     private String imgUrl;
 
-    @Transient
-    private Set<Category> categories = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "cdCategory", nullable = false)
+    private Category fkCategory;
 
+
+
+    @ManyToOne
+    @JoinColumn(name = "cdOrder")
+    @JsonBackReference
+    private Order fkOrder;
 }
