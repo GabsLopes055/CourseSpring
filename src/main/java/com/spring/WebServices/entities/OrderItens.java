@@ -1,51 +1,44 @@
 package com.spring.WebServices.entities;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-@Table(name = "tbl_product")
+@Table(name = "tbl_orderItens")
 @Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
+public class OrderItens implements Serializable {
 
     public static final long serialVersionUID = 1L;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name = "cdProduct")
-    private Long cdProduct;
-
-    private String name;
-
-    private String description;
+    private Long cdOrderItens;
 
     private Double price;
 
-    private String imgUrl;
-
-    @ManyToOne
-    @JoinColumn(name = "cdCategory", nullable = false)
-    private Category fkCategory;
+    private Integer quantity;
 
     @ManyToOne
     @JsonBackReference
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    @JoinColumn(name = "orderItens")
-    private OrderItens orderItens;
+    @JoinColumn(name = "cdOrder")
+    private Order order;
 
+    @OneToMany(mappedBy = "orderItens")
+    @JsonManagedReference
+    private List<Product> product = new ArrayList<>();
 }

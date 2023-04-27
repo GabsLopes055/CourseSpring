@@ -40,4 +40,20 @@ public class UserServices {
 
         return repository.save(user);
     }
+
+    public void deletarUser(Long id) {
+        repository.deleteById(id);
+    }
+
+    public User updateUser(Long id, User user) {
+        User userUpdate = repository.getReferenceById(id);
+        updateData(userUpdate, user);
+        return repository.save(userUpdate);
+    }
+
+    private void updateData(User userUpdate, User user) {
+        userUpdate.setName(user.getName());
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setPhone(user.getPhone());
+    }
 }
