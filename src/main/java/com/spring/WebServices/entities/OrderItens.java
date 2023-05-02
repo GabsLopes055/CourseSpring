@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -39,6 +40,5 @@ public class OrderItens implements Serializable {
     private Order order;
 
     @OneToMany(mappedBy = "orderItens")
-    @JsonManagedReference
     private List<Product> product = new ArrayList<>();
 }

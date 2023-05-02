@@ -43,9 +43,7 @@ public class Product implements Serializable {
     private Category fkCategory;
 
     @ManyToOne
-    @JsonBackReference
-    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-    @JoinColumn(name = "orderItens")
+    @JoinColumn(name = "cdOrderItens")
     private OrderItens orderItens;
 
 }
