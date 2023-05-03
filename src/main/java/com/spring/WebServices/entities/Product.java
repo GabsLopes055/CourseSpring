@@ -42,8 +42,16 @@ public class Product implements Serializable {
     @JoinColumn(name = "cdCategory", nullable = false)
     private Category fkCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "cdOrderItens")
-    private OrderItens orderItens;
+    @OneToMany(mappedBy = "cdOrderItens.product")
+    private Set<OrderItens> items = new HashSet<>();
+
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+
+        for(OrderItens x : items){
+            set.add(x.getOrder());
+        }
+        return set;
+    }
 
 }

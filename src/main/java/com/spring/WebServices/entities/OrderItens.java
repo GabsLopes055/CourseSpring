@@ -1,12 +1,10 @@
 package com.spring.WebServices.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.spring.WebServices.entities.pk.OrderItensPK;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,25 +18,39 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class OrderItens implements Serializable {
+public class OrderItens{
 
-    public static final long serialVersionUID = 1L;
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cdOrderItens;
+    @EmbeddedId
+    private OrderItensPK cdOrderItens = new OrderItensPK();
 
     private Double price;
 
     private Integer quantity;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "cdOrder")
-    private Order order;
+    public OrderItens(Order order, Product product, Double price, Integer quantity){
+        cdOrderItens.setOrder(order);
+        cdOrderItens.setProduct(product);
+        this.price = price;
+        this.quantity = quantity;
+    }
 
-    @OneToMany(mappedBy = "orderItens")
-    private List<Product> product = new ArrayList<>();
+    public Order getOrder(){
+        return cdOrderItens.getOrder();
+    }
+
+    public void setOrder(Order order){
+        cdOrderItens.setOrder(order);
+    }
+
+    public Product getProduct(){
+        return cdOrderItens.getProduct();
+    }
+
+    public void setProduct(Product product){
+        cdOrderItens.setProduct(product);
+    }
+//
+
+
+
 }

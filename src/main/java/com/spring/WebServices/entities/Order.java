@@ -1,8 +1,6 @@
 package com.spring.WebServices.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.spring.WebServices.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -37,8 +36,9 @@ public class Order {
     @JoinColumn(name = "cdUser")
     private User fkUser;
 
-    @OneToMany(mappedBy = "order")
-    @JsonManagedReference
-    private List<OrderItens> orderItens = new ArrayList<>();
+    @OneToMany(mappedBy = "cdOrderItens.order")
+    private Set<OrderItens> items;
+
+
 
 }

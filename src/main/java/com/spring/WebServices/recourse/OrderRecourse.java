@@ -3,6 +3,7 @@ package com.spring.WebServices.recourse;
 import com.spring.WebServices.entities.Order;
 import com.spring.WebServices.services.OrderServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class OrderRecourse {
     public OrderServices service;
 
     //metodo para buscar todos os pedidos
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.ALL_VALUE)
     public ResponseEntity<List<Order>> findAllOrders(){
         List<Order> listOrder = service.findAllOrder();
         return ResponseEntity.ok().body(listOrder);
